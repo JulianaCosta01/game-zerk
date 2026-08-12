@@ -8,6 +8,12 @@
     <img src="https://img.shields.io/badge/Pygame--ce-2.4+-2E8B57" alt="Pygame-ce 2.4+">
     <img src="https://img.shields.io/badge/Licença-MIT-yellow" alt="Licença MIT">
   </p>
+
+  <p>
+    <a href="https://julianacosta01.github.io/game-zerk/">
+      <img src="https://img.shields.io/badge/▶ Jogar no navegador-00D4FF?style=for-the-badge&logoColor=white" alt="Jogar no navegador">
+    </a>
+  </p>
 </div>
 
 ## Sobre
@@ -63,13 +69,19 @@ O código segue arquitetura modular orientada a objetos, com responsabilidades b
 | Enter | Iniciar / reiniciar |
 | Esc | Voltar ao menu |
 
-## Como executar
+## Como jogar no navegador
+
+Sem instalar nada: **[julianacosta01.github.io/game-zerk](https://julianacosta01.github.io/game-zerk/)**.
+
+O jogo roda direto no navegador via [pygbag](https://github.com/pygame-web/pygbag), que compila o Pygame para WebAssembly. A cada atualização enviada para o repositório, essa versão é reconstruída e publicada automaticamente.
+
+## Como executar localmente
 
 Requisitos: Python 3.10+ e pip.
 
 ```bash
-git clone https://github.com/JulianaCosta01/game-labirinto-impostores.git game-impostores-ofc
-cd game-impostores-ofc
+git clone https://github.com/JulianaCosta01/game-zerk.git
+cd game-zerk
 pip install -r requirements.txt
 python main.py
 ```
@@ -77,7 +89,7 @@ python main.py
 ## Estrutura do projeto
 
 ```text
-game-impostores-ofc/
+game-zerk/
 ├── main.py         # inicialização e loop principal
 ├── menu.py         # menu inicial
 ├── game_state.py   # coordenação dos sistemas do jogo
