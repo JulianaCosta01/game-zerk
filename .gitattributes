@@ -1,0 +1,4 @@
+# Normaliza quebras de linha: o Git guarda tudo como LF internamente e usa
+# a convenção de cada sistema operacional só na hora do checkout. Evita que
+# o Windows (CRLF) marque o projeto inteiro como "modified" sem mudança real.
+* text=auto eol=lf
