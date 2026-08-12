@@ -21,12 +21,12 @@ def carregar_audio():
            
     # Efeitos sonoros 
     nomes_sons = {
-        "tiro":        "tiro.wav",  
-        "explosao":    "explosao.wav",
-        "coleta":      "coleta.wav", 
-        "zona_alerta": "zona_alerta.wav", 
-        "vitoria":     "vitoria.wav",
-        "derrota":     "derrota.wav", 
+        "tiro":        "tiro.ogg",
+        "explosao":    "explosao.ogg",
+        "coleta":      "coleta.ogg",
+        "zona_alerta": "zona_alerta.ogg",
+        "vitoria":     "vitoria.ogg",
+        "derrota":     "derrota.ogg",
     }
 
     for chave, arquivo in nomes_sons.items():
@@ -123,7 +123,8 @@ async def executar_jogo(tela):
 
         pygame.display.flip()
 
-        # Cede o controle pro loop de eventos do navegador a cada frame. Necessário pro pygbag (build web); no desktop é um no-op.
+        # Cede o controle pro loop de eventos do navegador a cada frame.
+        # Necessário pro pygbag (build web); no desktop é um no-op.
         await asyncio.sleep(0)
 
     return True
@@ -136,7 +137,8 @@ async def main():
 
     pygame.init()
 
-    # Inicializa o som separadamente: se a máquina não tiver dispositivo de áudio disponível, o jogo continua rodando mudo em vez de travar.
+    # Inicializa o som separadamente: se a máquina não tiver dispositivo de
+    # áudio disponível, o jogo continua rodando mudo em vez de travar.
     try:
         pygame.mixer.init(frequency=44100, size=-16, channels=2, buffer=512)
         pygame.mixer.set_num_channels(16)
@@ -169,7 +171,8 @@ async def main():
 
     pygame.quit()
 
-    # No navegador (pygbag/emscripten) sys.exit() encerraria o runtime de forma abrupta; no desktop, encerra o processo normalmente.
+    # No navegador (pygbag/emscripten) sys.exit() encerraria o runtime de
+    # forma abrupta; no desktop, encerra o processo normalmente.
     if sys.platform != "emscripten":
         sys.exit()
 

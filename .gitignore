@@ -1,3 +1,6 @@
 __pycache__/
 *.pyc
 .vscode/
+
+# artefatos gerados pelo pygbag (o GitHub Actions gera isso sozinho no deploy)
+build/
