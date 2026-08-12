@@ -1,5 +1,6 @@
 import os
 import sys
+import asyncio
 import pygame
 import audio
 
@@ -48,7 +49,7 @@ def tocar_musica_fundo():
         pygame.mixer.music.play(loops=-1)
 
 
-def executar_jogo(tela):
+async def executar_jogo(tela):
     """
     Executa o loop principal do jogo.
 
@@ -122,18 +123,20 @@ def executar_jogo(tela):
 
         pygame.display.flip()
 
+        # Cede o controle pro loop de eventos do navegador a cada frame. Necessário pro pygbag (build web); no desktop é um no-op.
+        await asyncio.sleep(0)
+
     return True
 
 
-def main():
+async def main():
     """
     Função principal — inicializa o Pygame e alterna entre menu e jogo.
     """
 
     pygame.init()
 
-    # Inicializa o som separadamente: se a máquina não tiver dispositivo de
-    # áudio disponível, o jogo continua rodando mudo em vez de travar.
+    # Inicializa o som separadamente: se a máquina não tiver dispositivo de áudio disponível, o jogo continua rodando mudo em vez de travar.
     try:
         pygame.mixer.init(frequency=44100, size=-16, channels=2, buffer=512)
         pygame.mixer.set_num_channels(16)
@@ -152,20 +155,23 @@ def main():
     audio.sons = carregar_audio() if pygame.mixer.get_init() else {}
 
     while True:
-        deve_jogar = executar_menu(tela)
+        deve_jogar = await executar_menu(tela)
 
         if not deve_jogar:
-            break   
+            break
 
         # Executa o jogo
-        deve_continuar = executar_jogo(tela)
+        deve_continuar = await executar_jogo(tela)
         tocar_musica_fundo()
 
         if not deve_continuar:
             break
 
     pygame.quit()
-    sys.exit()
+
+    # No navegador (pygbag/emscripten) sys.exit() encerraria o runtime de forma abrupta; no desktop, encerra o processo normalmente.
+    if sys.platform != "emscripten":
+        sys.exit()
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

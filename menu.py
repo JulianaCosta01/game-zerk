@@ -4,6 +4,7 @@ import pygame
 import math
 import sys
 import os
+import asyncio
 from config import (
     LARGURA_TELA, ALTURA_TELA,
     COR_PRETO, COR_HUD_DESTAQUE, COR_HUD_FRACO,
@@ -50,7 +51,7 @@ class Botao:
                 self.rect.collidepoint(evento.pos))
 
 
-def executar_menu(tela):
+async def executar_menu(tela):
     """
     Executa o loop do menu principal: eventos, hover dos botões e
     renderização do fundo/título/botões, até o jogador escolher jogar
@@ -163,6 +164,9 @@ def executar_menu(tela):
 
         pygame.display.flip()
         relogio.tick(60)
+
+        # Cede o controle pro loop de eventos do navegador a cada frame. Necessário pro pygbag (build web); no desktop é um no-op.
+        await asyncio.sleep(0)
 
     return False
 
